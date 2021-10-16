@@ -23,7 +23,7 @@ def one_url(animal_name):
 
         count = url3.count("https://")
         if count > 1:
-            url3 = url3[8:]
+            url3 = url3[7:]
 
 
 
@@ -48,7 +48,7 @@ def download_all(file):
         contents = f.readlines()
 
     # loop through all the names and query the internet for each one
-    for line in contents:
+    for line in contents[0:10]:
         line = line.rstrip()
         one_url(line)
 

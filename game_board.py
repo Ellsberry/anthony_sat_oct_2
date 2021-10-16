@@ -14,8 +14,8 @@ def initialize_game():
     """ Initialize game """
 
     # Find on your computer the folder locations that will be used
-    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\animal_pictures"
-    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\player_pictures"
+    animal_jpgs_path = r"C:\Users\sells\PycharmProjects\anthony_sat_oct_2\image"
+    player_data_path = r"C:\Users\sells\PycharmProjects\anthony_sat_oct_2\player_pictures"
 
     # Set up game screen
     pygame.init()
@@ -66,19 +66,11 @@ def player_screen(num_players,player_data_path,surface):
             text_surface = font.render(name_score[row][column], False, (0, 255, 0))
             surface.blit(text_surface, ((x + 10) + (450 * column), (y + 10) + (row * 50)) )
             pygame.display.flip()
-    time.sleep(60)
+    time.sleep(5)
     return surface
 
 
-def i_do_not_know():
-    for image in range(5):  # 0, len(image_list), 1):
-        # for image in image_list:
-        score(name_score, surface)
-        print('The animal name is ', image_list[image])
-        display_jpg(image_list[image], surface)
-        pygame.display.update()
-        pygame.time.Clock().tick(1)
-        time.sleep(60)
+
 
 
 
