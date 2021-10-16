@@ -74,7 +74,6 @@ def player_screen(num_players, player_data_path, surface):
             surface.blit(text_surface, ((x + 10) + (450 * column), (y + 10) + (row * 50)) )
             pygame.display.flip()
     return surface
-# This is a temporary comment.
 
 
 def clue_surface(animal_jpgs_path, clue_file, surface):
