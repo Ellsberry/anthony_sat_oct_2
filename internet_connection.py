@@ -16,14 +16,14 @@ def one_url(animal_name):
         data = r.text
         search_for = 'meta property="og:image" content="https://'
         lchar = data.find(search_for)
-        slice_object = slice(lchar + 34, lchar + 100)
+        slice_object = slice(lchar + 34, lchar + 250)
         new_string = r.text[slice_object]
         rchar = new_string.find(".jpg")
         url3 = new_string[:rchar + 4]
 
         count = url3.count("https://")
         if count > 1:
-            url3 = url3[7:]
+            url3 = url3[8:]
 
 
 
@@ -48,7 +48,7 @@ def download_all(file):
         contents = f.readlines()
 
     # loop through all the names and query the internet for each one
-    for line in contents[0:5]:
+    for line in contents:
         line = line.rstrip()
         one_url(line)
 
