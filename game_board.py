@@ -1,7 +1,6 @@
 """ This game is for up to 3 players.  You will need the locations on your computer
  for the animal pictures and player data """
 import sys
-
 import pygame
 import os
 import time
@@ -21,7 +20,8 @@ def main():
     player_surface(game_surface)
 
     # show game masters of ceremony
-    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
@@ -34,7 +34,7 @@ def main():
     player_1_name = get_input("string", game_surface)
     print("player number 1:  ", player_1_name)
 
-    time.sleep(10)
+    time.sleep(20)
 
 
 def game_screen():
@@ -45,7 +45,7 @@ def game_screen():
     return screen
 
 
-def solution_board(surface,text):
+def solution_board(surface, text):
     """this module shows the text to be solved"""
     font = pygame.font.SysFont("Arial", 80)
     rec = pygame.Rect(20, 20, 1220, 120)
@@ -58,9 +58,9 @@ def player_surface(surface, num_players = 0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    # player_data_path = r"C:\Users\ajh08\PycharmProjects\anthony_sat_oct_two\player_pictures"
+    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
 
@@ -80,7 +80,7 @@ def player_surface(surface, num_players = 0):
     # display current score.  At the beginning of game scores are 0.
     #      EVENTUALLY THE FOLLOW DATA WILL COME FROM A FILE
     name_score = [["bugs", "daffy", "sam"], ["0", "0", "0"], ["0", "0", "0"]]
-
+    print("Bugs' current score: ", name_score[2][1])
     # Set up rectangle space for player data
     num_players = 3
     x, y = 20, 380
@@ -99,9 +99,9 @@ def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    # animal_jpgs_path = r"C:\imagee"
+    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
@@ -110,7 +110,7 @@ def clue_surface(clue_file, surface):
     pygame.display.flip()
 
 
-def input_message(surface,text):
+def input_message(surface, text):
     """this module shows the input requests"""
     message = text + "  and press space bar"
     font = pygame.font.SysFont("Arial", 60)
@@ -118,6 +118,7 @@ def input_message(surface,text):
     pygame.draw.rect(surface, (0, 250, 0), input_rect)
     input_screen = font.render(text, False, (0, 0, 250))
     surface.blit(input_screen, input_rect)
+
 
 def get_input(type_input, surface):
     """get input data that is either a 'number' or a 'string' """
@@ -128,16 +129,16 @@ def get_input(type_input, surface):
     surface.blit(input_screen, input_rect)
     user_text = ""
     get_user_input = True
-    while get_user_input == True:
+    while get_user_input:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                time.sleep(10)
+                time.sleep(2)
                 pygame.quit()
                 sys.exit()
             else:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        break
+                        get_user_input = False
                     user_text += event.unicode
                     if type_input == "number":
                         if user_text in ['1', '2', '3']:
@@ -145,8 +146,8 @@ def get_input(type_input, surface):
                         else:
                             break
                     else:
-                        print("line 148 user text", user_text)
-                        return user_text[:-1]
+                        print("line 148 user text ", user_text)
+        return user_text[:-1]
 
 
 

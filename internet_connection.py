@@ -1,6 +1,7 @@
 import requests
 import os
 
+
 def main():
     file = 'animals_starting_with_c.txt'
     download_all(file)
@@ -25,8 +26,6 @@ def one_url(animal_name):
         if count > 1:
             url3 = url3[7:]
 
-
-
         r = requests.get(url3)
 
         file_name = os.getcwd() + '\\image\\' + animal_name.replace(' ', '-') + '.jpg'
@@ -48,7 +47,7 @@ def download_all(file):
         contents = f.readlines()
 
     # loop through all the names and query the internet for each one
-    for line in contents[0:10]:
+    for line in contents[:]:
         line = line.rstrip()
         one_url(line)
 
