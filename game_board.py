@@ -20,11 +20,11 @@ def main():
 
     # create the initial player surface with 3 players
     name_score = [["bugs", "daffy", "sam"], ["0", "0", "0"], ["0", "0", "0"]]
-    player_surface(game_surface, name_score,0)
+    player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
@@ -51,7 +51,7 @@ def main():
         player_3_name = get_input("string", game_surface)
         print('player 3 name', player_3_name)
         name_score[0][2] = player_3_name
-        player_surface(game_surface, name_score,num_players)
+        player_surface(game_surface, name_score, num_players)
     time.sleep(10)
 
 
@@ -72,13 +72,13 @@ def solution_board(surface, text):
     surface.blit(prompt, (60, 40))
 
 
-def player_surface(surface, name_score, num_players = 0):
+def player_surface(surface, name_score, num_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
     x, y = 20, 380
@@ -131,9 +131,9 @@ def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
@@ -160,13 +160,12 @@ def input_message(surface, text):
     pygame.display.flip()
 
 
-
 def get_input(type_input, surface):
     """get input data that is either a 'number' or a 'string' """
     # create input screen
     font = pygame.font.SysFont("Arial", 40)
     rec = pygame.Rect(20, 210, 1220, 100)
-    pygame.draw.rect(surface, (0, 0,250), rec)
+    pygame.draw.rect(surface, (0, 0, 250), rec)
     prompt = font.render(" ", False, (250, 250, 0))
     surface.blit(prompt, (30, 230))
     pygame.display.flip()
@@ -179,7 +178,7 @@ def get_input(type_input, surface):
                 pygame.quit()
                 sys.exit()
 
-            if event.type == pygame.MOUSEMOTION or event.type == pygame.MOUSEBUTTONDOWN or  event.type == pygame.MOUSEBUTTONUP:
+            if event.type == pygame.MOUSEMOTION or event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
                 break
             if event.type == pygame.KEYDOWN:
                 if event.unicode.isalnum():
@@ -190,7 +189,6 @@ def get_input(type_input, surface):
                     pygame.display.flip()
                 else:
                     return user_text
-
 
             if type_input == "number":
                 if user_text in ['1', '2', '3']:
@@ -206,11 +204,11 @@ def get_input(type_input, surface):
 
 
 """get input data that is either a 'number' or a 'string' """
-    # input_font = pygame.font.sysFont("Arial", 60)
-    # input_rect = pygame.Rect(80, 150, 1220, 120)
-    # pygame.draw.rect(surface, (0, 250, 0), input_rect)
-    # input_screen = font.render("?", False, (0, 0, 250))
-    # surface.blit(input_screen, input_rect)
+# input_font = pygame.font.sysFont("Arial", 60)
+# input_rect = pygame.Rect(80, 150, 1220, 120)
+# pygame.draw.rect(surface, (0, 250, 0), input_rect)
+# input_screen = font.render("?", False, (0, 0, 250))
+# surface.blit(input_screen, input_rect)
 
 
 
