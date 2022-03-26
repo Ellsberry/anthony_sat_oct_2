@@ -23,15 +23,14 @@ def main():
     player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
     input_message(game_surface, 'Enter the number of people playing (1, 2, or 3)?')
     pygame.display.flip()
     num_players = get_input("number", game_surface)
-    time.sleep(5)
     input_message(game_surface, 'Enter name of player number 1')
     pygame.display.flip()
     player_1_name = get_input("string", game_surface)
@@ -62,7 +61,7 @@ def game_screen():
     pygame.display.flip()
     return screen
 
-
+#
 def solution_board(surface, text):
     """this module shows the text to be solved"""
     font = pygame.font.SysFont("Arial", 80)
@@ -76,9 +75,9 @@ def player_surface(surface, name_score, num_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
     x, y = 20, 380
@@ -88,7 +87,6 @@ def player_surface(surface, name_score, num_players=0):
         for column in range(num_players):
             rec = pygame.Rect(x + 220 * column, y + 40 * row, 300, 40)
             pygame.draw.rect(surface, (0, 0, 0), rec, 0)
-            print("line number 112 name score", name_score)
             text_surface = font.render(blank_name_score[row][column], False, (0, 255, 0))
             surface.blit(text_surface, ((x + 10) + (320 * column), (y + 10) + (row * 35)))
             pygame.display.flip()
@@ -120,7 +118,6 @@ def player_surface(surface, name_score, num_players=0):
         for column in range(num_players):
             rec = pygame.Rect(x + 220 * column, y + 40 * row, 300, 40)
             pygame.draw.rect(surface, (0, 0, 0), rec, 1)
-            print("line number 112 name score", name_score)
             text_surface = font.render(name_score[row][column], False, (0, 255, 0))
             surface.blit(text_surface, ((x + 10) + (320 * column), (y + 10) + (row * 35)))
             pygame.display.flip()
@@ -131,9 +128,9 @@ def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
@@ -180,7 +177,12 @@ def get_input(type_input, surface):
 
             if event.type == pygame.MOUSEMOTION or event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
                 break
+            if event.type == pygame.KEYUP:
+                break
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RSHIFT or event.key == pygame.K_LSHIFT:
+                    print("key shift left:", pygame.K_RSHIFT)
+                    break
                 if event.unicode.isalnum():
                     user_text += event.unicode
                     pygame.draw.rect(surface, (0, 0, 250), rec)
@@ -196,8 +198,6 @@ def get_input(type_input, surface):
                 else:
                     user_text = ""
                     break
-            else:
-                print("line 158 user text ", user_text)
 
     time.sleep(25)
     return user_text[:-1]
