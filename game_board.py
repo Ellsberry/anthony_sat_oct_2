@@ -9,8 +9,8 @@ from Wheel_of_Fortune_using_run_screen import read_file, choose_item, starting_p
 # get the path of the game directory
 game_path = os.getcwd()
 
-def main():
 
+def main():
 
     pygame.init()
     clock = pygame.time.Clock()
@@ -28,8 +28,8 @@ def main():
     player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
@@ -62,7 +62,7 @@ def main():
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
     text_to_be_solved = choose_item(text_list).lower()
     player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet,
-                number_of_players, player, name_score, rewards_list, text_list,game_surface)
+                number_of_players, player, name_score, rewards_list, text_list, game_surface)
     print("scores")
     if input("Continue Playing Game y or n:  ") == "n":
         quit()
@@ -76,7 +76,7 @@ def game_screen():
     pygame.display.flip()
     return screen
 
-#
+
 def solution_board(surface, text):
     """this module shows the text to be solved"""
     font = pygame.font.SysFont("Arial", 80)
@@ -90,9 +90,9 @@ def player_surface(surface, name_score, number_of_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
     x, y = 20, 380
@@ -138,6 +138,7 @@ def player_surface(surface, name_score, number_of_players=0):
             pygame.display.flip()
     return surface
 
+
 def player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, name_score, rewards_list, text_list, surface):
     """ Loop through 1 to 3 players until game problem is solved
      each player gets to guess a new letter or vowel
@@ -148,22 +149,24 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
     active_player = 0
 
     letters_guessed = []                             # this will be a list of all guessed letters during a single round
-    letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its characters
+    letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its letters
     print(text_to_be_solved)
     spaces = text_to_be_solved.count(" ")
     number_of_letters_in_text = len(text_to_be_solved) - spaces
-    partially_solved_text = []                      # partially_solved_text is list of characters as the text is filled in
+    partially_solved_text = []                   # partially_solved_text is list of characters as the text is filled in
 
+    continue_solving_text, partially_solved_text, solution = process_letter(" ", partially_solved_text, text_to_be_solved)
     guess = " "
 
     while continue_solving_text:
         # Show the text and a picture on a game board and get players guess
         # for now all displays are sent to Python Console
+        print("From line 163", partially_solved_text)
         printable_partial_text = []
         for i in range(len(text_to_be_solved)):
-            printable_partial_text = printable_partial_text + partially_solved_text[i]
+            printable_partial_text = str(printable_partial_text) + str(partially_solved_text[i])
         print("line 165", printable_partial_text)
-        # solution_board(surface, partially_solved_text)
+        solution_board(surface, printable_partial_text)
         print(process_letter(guess, partially_solved_text, letter_to_be_guessed))
         # select a reward or penalty
         reward = int(choose_item(rewards_list))
@@ -212,9 +215,9 @@ def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
@@ -293,13 +296,6 @@ def get_input(type_input, surface):
 # pygame.draw.rect(surface, (0, 250, 0), input_rect)
 # input_screen = font.render("?", False, (0, 0, 250))
 # surface.blit(input_screen, input_rect)
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
