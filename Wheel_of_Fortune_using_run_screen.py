@@ -118,18 +118,19 @@ def find_letters(text_to_be_solved):
 
 def starting_player(player_score, number_of_players):
     """Set active player to lowest player number with highest score"""
-    if number_of_players == 1:
-        active_player = 0
-    elif number_of_players == 2 and player_score[0] >= player_score[1]:
-        active_player = 0
-    elif number_of_players == 2 and player_score[0] < player_score[1]:
-        active_player = 1
-    elif player_score[0] >= player_score[1] and player_score[0] >= player_score[2]:
-        active_player = 0
-    elif player_score[1] >= player_score[2]:
-        active_player = 1
-    else:
-        active_player = 2
+    # if number_of_players == 1:
+    #     active_player = 0
+    # elif number_of_players == 2 and player_score[0] >= player_score[1]:
+    #     active_player = 0
+    # elif number_of_players == 2 and player_score[0] < player_score[1]:
+    #     active_player = 1
+    # elif player_score[0] >= player_score[1] and player_score[0] >= player_score[2]:
+    #     active_player = 0
+    # elif player_score[1] >= player_score[2]:
+    #     active_player = 1
+    # else:
+    #     active_player = 2
+    active_player = 0
     return active_player
 
 
