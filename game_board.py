@@ -28,8 +28,8 @@ def main():
     player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
@@ -41,17 +41,17 @@ def main():
     input_message(game_surface, 'Enter name of player number 1')
     pygame.display.flip()
     player_1_name = get_input("string", game_surface)
-    name_score[0][0] = player_1_name
+    name_score[0][0] = player_1_name.title()
     if number_of_players >= 2:
         input_message(game_surface, 'Enter name of player number 2')
         pygame.display.flip()
         player_2_name = get_input("string", game_surface)
-        name_score[0][1] = player_2_name
+        name_score[0][1] = player_2_name.title()
     if number_of_players == 3:
         input_message(game_surface, 'Enter name of player number 3')
         pygame.display.flip()
         player_3_name = get_input("string", game_surface)
-        name_score[0][2] = player_3_name
+        name_score[0][2] = player_3_name.title()
     player_surface(game_surface, name_score, number_of_players)
 
     continue_running_game = True
@@ -61,7 +61,6 @@ def main():
     letters_in_alphabet = list("abcdefghijklmnopqrstuvwxyz")
     os.chdir(game_path + r'\image')
     text_list = os.listdir()
-
 
     # text_list = read_file(game_path + r"\Animals_1.txt")
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
@@ -98,9 +97,9 @@ def player_surface(surface, name_score, number_of_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
     x, y = 20, 380
@@ -177,7 +176,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
         # active_player = starting_player(player_score, number_of_players)
         active_player = 0
 
-        letters_guessed = []                             # this will be a list of all guessed letters during a single round
+        letters_guessed = []                          # this will be a list of all guessed letters during a single round
         letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its letters
         print(text_to_be_solved)
         spaces = text_to_be_solved.count(" ")
@@ -214,13 +213,13 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 player_surface(surface, name_score, number_of_players)
                 input_message(surface, "You did not type a letter!!!  Next Player.")
                 time.sleep(3)
-                input_message(surface,"Input not a letter.  Next Player")
+                input_message(surface, "Input not a letter.  Next Player")
                 active_player += 1
                 continue
             elif guess in letters_guessed:
                 score -= reward
                 name_score[1][active_player] = str(score)
-                player_surface(surface,name_score,number_of_players)
+                player_surface(surface, name_score, number_of_players)
                 input_message(surface, "Don't be a duffus.  This letter was already guessed!!!  Next Player.")
                 time.sleep(3)
                 active_player += 1
@@ -243,12 +242,19 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 
             letters_guessed.append(guess)
             continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
-            if continue_solving_text == False:
+            if not continue_solving_text:
                 solution_board(surface, partially_solved_text)
                 input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
-                get_input('string', surface)
-                continue_running_game = True
-
+                continue_play = get_input('string', surface)
+                if continue_play == "n" or continue_play == "no":
+                    time.sleep(5)
+                    exit()
+                else:
+                    continue_running_game = True
+                    solution_board(surface, partially_solved_text)
+                    picture = choose_item(text_list)
+                    text_to_be_solved = picture.replace(".jpg", "")
+                    clue_surface(picture, surface)
             pygame.display.flip()
 
 
@@ -256,9 +262,9 @@ def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
