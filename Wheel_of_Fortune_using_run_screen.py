@@ -94,7 +94,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
             player_score[active_player] -= reward
             active_player += 1
             break
-        elif guess not in letter_to_be_guessed and guess in ["aeiou"]:
+        elif guess not in letter_to_be_guessed and guess in ["a", "e", "i", "o", "u"]:
             print("Vowel is not in text")
             player_score[active_player] -= 250
             active_player += 1
@@ -136,18 +136,27 @@ def starting_player(player_score, number_of_players):
 
 def process_letter(new_letter, partially_solved_text, solution):
     """Set up new partial_solved_text if this is the first time the function is called
-                else add a letter to the partial_solved_texxt"""
+                else add a letter to the partial_solved_text"""
 
     if len(partially_solved_text) < 1:
-        partially_solved_text = [" " if solution[index] in "abcdefghijklmnopqrstuvwxyz" else solution[index] for index in range(len(solution))  ]
+        temp_partially_solved_text = ["?" if solution[index] in "abcdefghijklmnopqrstuvwxyz" else solution[index] for index in range(len(solution))  ]
+        partially_solved_text = ""
+        for letter in temp_partially_solved_text:
+            partially_solved_text += letter
 
-    partially_solved_text = [new_letter if solution[index] == new_letter else partially_solved_text[index] for index in range(len(solution))]
+        print('created line 143  ', solution, "  xxx   ", partially_solved_text)
+
+    else:
+        temp_partially_solved_text = [new_letter if solution[index] == new_letter else partially_solved_text[index] for index in range(len(solution))]
+        partially_solved_text = ""
+        for letter in temp_partially_solved_text:
+            partially_solved_text += letter
 
     if partially_solved_text == solution:
         continue_solving_text = False
     else:
         continue_solving_text = True
-    return_list = [continue_solving_text, partially_solved_text, solution]
+    # return_list = [continue_solving_text, partially_solved_text, solution]
     return continue_solving_text, partially_solved_text, solution
 
 

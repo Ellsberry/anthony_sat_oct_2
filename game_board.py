@@ -28,14 +28,16 @@ def main():
     player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    # picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
     input_message(game_surface, 'Enter the number of people playing (1, 2, or 3)?')
     pygame.display.flip()
-    number_of_players = get_input("number", game_surface)
+    # time.sleep(2)
+    num_of_players = get_input("string", game_surface)
+    number_of_players = int(num_of_players)
     input_message(game_surface, 'Enter name of player number 1')
     pygame.display.flip()
     player_1_name = get_input("string", game_surface)
@@ -50,23 +52,29 @@ def main():
         pygame.display.flip()
         player_3_name = get_input("string", game_surface)
         name_score[0][2] = player_3_name
-        player_surface(game_surface, name_score, number_of_players)
+    player_surface(game_surface, name_score, number_of_players)
 
     continue_running_game = True
     continue_solving_text = True
     player = []
     active_player = 0
-    letters_in_alphabet = "abcdefghijklmnopqrstuvwxyz"
+    letters_in_alphabet = list("abcdefghijklmnopqrstuvwxyz")
+    os.chdir(game_path + r'\image')
+    text_list = os.listdir()
 
-    text_list = read_file(game_path + r"\Animals_1.txt")
+
+    # text_list = read_file(game_path + r"\Animals_1.txt")
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
-    text_to_be_solved = choose_item(text_list).lower()
+    picture = choose_item(text_list)
+    text_to_be_solved = picture.replace('.jpg', "").lower()
+    print('Game Board line 69 picture to be solved', picture, '  xx   ',  text_to_be_solved)
+    clue_surface(picture, game_surface)
     player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet,
                 number_of_players, player, name_score, rewards_list, text_list, game_surface)
-    print("scores")
-    if input("Continue Playing Game y or n:  ") == "n":
-        quit()
-    time.sleep(10)
+
+    # if input("Continue Playing Game y or n:  ") == "n":
+    #     quit()
+    # time.sleep(10)
 
 
 def game_screen():
@@ -90,9 +98,9 @@ def player_surface(surface, name_score, number_of_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
     # This URL is for Steve's Computer
-    # player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
     # This URL is for Anthony's computer
-    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
 
     os.chdir(player_data_path)
     x, y = 20, 380
@@ -101,8 +109,8 @@ def player_surface(surface, name_score, number_of_players=0):
     for row in range(3):
         for column in range(number_of_players):
             rec = pygame.Rect(x + 220 * column, y + 40 * row, 300, 40)
-            pygame.draw.rect(surface, (0, 0, 0), rec, 0)
-            text_surface = font.render(blank_name_score[row][column], False, (0, 255, 0))
+            pygame.draw.rect(surface, (0, 0, 255), rec, 0)
+            text_surface = font.render(blank_name_score[row][column].title(), False, (0, 255, 0))
             surface.blit(text_surface, ((x + 10) + (320 * column), (y + 10) + (row * 35)))
             pygame.display.flip()
 
@@ -122,8 +130,18 @@ def player_surface(surface, name_score, number_of_players=0):
         # display current score.  At the beginning of game scores are 0.
         #      EVENTUALLY THE FOLLOW DATA WILL COME FROM A FILE
         name_score = [["bugs", "daffy", "sam"], ["0", "0", "0"], ["0", "0", "0"]]
-    elif number_of_players == 1:
-        pass
+
+    else:
+        player1_image = pygame.image.load(find_player_image(name_score[0][0]))
+        player1_image = pygame.transform.scale(player1_image, (200, 200))
+        surface.blit(player1_image, (20, 500))
+        player2_image = pygame.image.load(find_player_image(name_score[0][1]))
+        player2_image = pygame.transform.scale(player2_image, (200, 200))
+        surface.blit(player2_image, (320, 500))
+        player3_image = pygame.image.load(find_player_image(name_score[0][2]))
+        player3_image = pygame.transform.scale(player3_image, (200, 200))
+        surface.blit(player3_image, (620, 500))
+        pygame.display.flip()
 
     # Set up rectangle space for player data
     number_of_players = 3
@@ -133,91 +151,114 @@ def player_surface(surface, name_score, number_of_players=0):
         for column in range(number_of_players):
             rec = pygame.Rect(x + 220 * column, y + 40 * row, 300, 40)
             pygame.draw.rect(surface, (0, 0, 0), rec, 1)
-            text_surface = font.render(name_score[row][column], False, (0, 255, 0))
+            text_surface = font.render(name_score[row][column].title(), False, (0, 255, 0))
             surface.blit(text_surface, ((x + 10) + (320 * column), (y + 10) + (row * 35)))
             pygame.display.flip()
     return surface
+
+
+def find_player_image(name):
+    list_of_past_players = os.listdir()
+    for player in list_of_past_players:
+        temp = player.replace('.jpg', '')
+        if temp.lower() ==  name.lower():
+            image_file_name = player
+            return image_file_name
+    image_file_name = 'sam.jpg'
+    return  image_file_name
 
 
 def player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, name_score, rewards_list, text_list, surface):
     """ Loop through 1 to 3 players until game problem is solved
      each player gets to guess a new letter or vowel
      if the text includes the letter the player gets another turn"""
+    while continue_running_game:
+        # determine which player starts the game round.
+        # active_player = starting_player(player_score, number_of_players)
+        active_player = 0
 
-    # determine which player starts the game round.
-    # active_player = starting_player(player_score, number_of_players)
-    active_player = 0
+        letters_guessed = []                             # this will be a list of all guessed letters during a single round
+        letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its letters
+        print(text_to_be_solved)
+        spaces = text_to_be_solved.count(" ")
+        number_of_letters_in_text = len(text_to_be_solved) - spaces
+        partially_solved_text = []                   # partially_solved_text is list of characters as the text is filled in
 
-    letters_guessed = []                             # this will be a list of all guessed letters during a single round
-    letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its letters
-    print(text_to_be_solved)
-    spaces = text_to_be_solved.count(" ")
-    number_of_letters_in_text = len(text_to_be_solved) - spaces
-    partially_solved_text = []                   # partially_solved_text is list of characters as the text is filled in
+        continue_solving_text, partially_solved_text, solution = process_letter(" ", partially_solved_text, text_to_be_solved)
+        solution_board(surface, partially_solved_text)
+        guess = " "
 
-    continue_solving_text, partially_solved_text, solution = process_letter(" ", partially_solved_text, text_to_be_solved)
-    guess = " "
+        while continue_solving_text:
+            # Show the text and a picture on a game board and get players guess
+            pygame.display.flip()
+            # ---
+            solution_board(surface, partially_solved_text)
+            pygame.display.flip()
 
-    while continue_solving_text:
-        # Show the text and a picture on a game board and get players guess
-        # for now all displays are sent to Python Console
-        print("From line 163", partially_solved_text)
-        printable_partial_text = []
-        for i in range(len(text_to_be_solved)):
-            printable_partial_text = str(printable_partial_text) + str(partially_solved_text[i])
-        print("line 165", printable_partial_text)
-        solution_board(surface, printable_partial_text)
-        print(process_letter(guess, partially_solved_text, letter_to_be_guessed))
-        # select a reward or penalty
-        reward = int(choose_item(rewards_list))
+            # select a reward or penalty
+            reward = int(choose_item(rewards_list))
 
-        if active_player >= number_of_players:
-            active_player = 0
+            if active_player >= number_of_players:
+                active_player = 0
 
-        # input a players guess
-        print(f"The hidden text has {number_of_letters_in_text} letters and {spaces} spaces.")
-        guess = input(
-            f"{name_score[0][active_player]}'s score is: {name_score[1][active_player]}.  Reward for correct letter is {reward}.  Input a letter:  ")
-        print("line 178 name_score ", name_score)
-        print("line 178 name_score ", name_score[1][active_player])
-        score = int(name_score[1][active_player])
-        if guess not in letters_in_alphabet:
-            print("input not a letter")
-            score -= reward
-            name_score[1][active_player] = str(score)
-            active_player += 1
-            break
-        elif guess in letters_guessed:
-            print("Don't be a duffus.  This letter was already guessed!!!")
-            score -= reward
-            name_score[1][active_player] = str(score)
-            active_player += 1
-            break
-        elif guess not in letter_to_be_guessed and guess in ["aeiou"]:
-            print("Vowel is not in text")
-            score -= 250
-            name_score[1][active_player] = str(score)
-            active_player += 1
-            break
-        elif guess in ["aeiou"] and guess in ["aeiou"]:
-            score -= 250
-            name_score[1][active_player] = str(score)
-        else:
-            score += letter_to_be_guessed.count(guess) * reward
-            name_score[1][active_player] = str(score)
+            # input a players guess
+            input_message(surface, f"{name_score[0][active_player]} The hidden text has {number_of_letters_in_text} letters and {spaces} spaces.  Guess value = {reward}")
+            pygame.display.flip()
+            guess = get_input("string", surface)
+            # guess = input(
+            #     f"{name_score[0][active_player]}'s score is: {name_score[1][active_player]}.  Reward for correct letter is {reward}.  Input a letter:  ")
+            score = int(name_score[1][active_player])
+            if guess not in letters_in_alphabet:
+                score -= reward
+                name_score[1][active_player] = str(score)
+                player_surface(surface, name_score, number_of_players)
+                input_message(surface, "You did not type a letter!!!  Next Player.")
+                time.sleep(3)
+                input_message(surface,"Input not a letter.  Next Player")
+                active_player += 1
+                continue
+            elif guess in letters_guessed:
+                score -= reward
+                name_score[1][active_player] = str(score)
+                player_surface(surface,name_score,number_of_players)
+                input_message(surface, "Don't be a duffus.  This letter was already guessed!!!  Next Player.")
+                time.sleep(3)
+                active_player += 1
+                continue
+            elif guess not in letter_to_be_guessed and guess in ["a", "e", "i", "o", "u"]:
+                score -= 250
+                name_score[1][active_player] = str(score)
+                player_surface(surface, name_score, number_of_players)
+                input_message(surface, "Vowel is not in text")
+                active_player += 1
+                continue
+            elif guess in ["a", "e", "i", "o", "u"]:
+                score -= 250
+                name_score[1][active_player] = str(score)
+                player_surface(surface, name_score, number_of_players)
+            elif guess in text_to_be_solved:
+                score += letter_to_be_guessed.count(guess) * reward
+                name_score[1][active_player] = str(score)
+                player_surface(surface, name_score, number_of_players)
 
-        letters_guessed.append(guess)
-        continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
-        # active_player += 1
+            letters_guessed.append(guess)
+            continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
+            if continue_solving_text == False:
+                solution_board(surface, partially_solved_text)
+                input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
+                get_input('string', surface)
+                continue_running_game = True
+
+            pygame.display.flip()
 
 
 def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
     # This URL is for Steve's Computer
-    # animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\Steve Ellsberry\PycharmProjects\anthony_steve_wheel_of_fortune\image"
     # This URL is for Anthony's computer
-    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)
@@ -279,23 +320,6 @@ def get_input(type_input, surface):
                 else:
                     return user_text
 
-            if type_input == "number":
-                if user_text in ['1', '2', '3']:
-                    return int(user_text)
-                else:
-                    user_text = ""
-                    break
-
-    time.sleep(25)
-    return user_text[:-1]
-
-
-"""get input data that is either a 'number' or a 'string' """
-# input_font = pygame.font.sysFont("Arial", 60)
-# input_rect = pygame.Rect(80, 150, 1220, 120)
-# pygame.draw.rect(surface, (0, 250, 0), input_rect)
-# input_screen = font.render("?", False, (0, 0, 250))
-# surface.blit(input_screen, input_rect)
 
 
 if __name__ == "__main__":

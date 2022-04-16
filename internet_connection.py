@@ -3,7 +3,8 @@ import os
 
 
 def main():
-    file = 'animals_starting_with_c.txt'
+    # file = 'animals_starting_with_c.txt'
+    file = 'Animals_1.txt'
     download_all(file)
 
 
