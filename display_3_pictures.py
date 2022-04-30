@@ -6,6 +6,7 @@ import os
 import sys
 
 
+# hello
 def main():
     # time.sleep(10)
     pygame.init()
