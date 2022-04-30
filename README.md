@@ -36,12 +36,13 @@ Rt data from the internet into dictionaries and save in a file
      2b. If I go to my web browser -- I can enter the url of the picture, and it will display the picture
      
  What we want to know:
-     3a. How do we save the actual .jpg picture (not just the name of the picture) to my computer or  [DONE]
+     3a. How do we save the actual .jpg picture (not just the name of the picture) to my computer [DONE]
      3b. Is it possible to cause my Internet Explorer to show the picture using the url [YES]
 
 List of problems:
      4a. Fix problems that are caused by the shift key  [DONE]
-     4b. Something else
+     4b. Fix 1st letter bug
+     4c. Turn '-' to a space on ALL turns for the animal names
 
 
 To Do:
