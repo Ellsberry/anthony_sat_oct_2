@@ -11,7 +11,7 @@ def main():
         exit()
     for key, value in dictionary.items():
         print("{:<15} {:}".format(key, value))
-# Hi.
+
 
 
 def read_csv_file_into_dictionary(file):
