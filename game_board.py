@@ -66,7 +66,6 @@ def main():
     os.chdir(game_path + r'\image')
     text_list = os.listdir()
 
-
     # text_list = read_file(game_path + r"\Animals_1.txt")
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
     picture = choose_item(text_list)
@@ -225,7 +224,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
             elif guess in letters_guessed:
                 score -= reward
                 name_score[1][active_player] = str(score)
-                player_surface(surface,name_score,number_of_players)
+                player_surface(surface, name_score, number_of_players)
                 input_message(surface, "Don't be a doofus. This letter was already guessed! Next Player.")
                 time.sleep(3)
                 active_player += 1
@@ -257,12 +256,15 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 
             letters_guessed.append(guess)
             continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
-            if continue_solving_text == False:
+            if not continue_solving_text:
                 solution_board(surface, partially_solved_text)
                 input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
-                get_input('string', surface)
-                continue_running_game = True
-
+                x = get_input('string', surface)
+                if x == "y":
+                    continue_running_game = True
+                else:
+                    time.sleep(10)
+                    quit()
             pygame.display.flip()
 
 
@@ -333,7 +335,6 @@ def get_input(type_input, surface):
                     pygame.display.flip()
                 else:
                     return user_text
-# :|
 
 
 if __name__ == "__main__":
