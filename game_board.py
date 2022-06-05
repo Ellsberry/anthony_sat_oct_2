@@ -57,7 +57,7 @@ def main():
         player_3_name = get_input("string", game_surface)
         name_score[0][2] = player_3_name
     player_surface(game_surface, name_score, number_of_players)
-
+# Bark!
     continue_running_game = True
     continue_solving_text = True
     player = []
