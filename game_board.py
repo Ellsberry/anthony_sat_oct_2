@@ -28,8 +28,8 @@ def main():
     player_surface(game_surface, name_score, 0)
 
     # show game masters of ceremony
-    picture = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
-    # picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    # picture = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
+    picture = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\anthony_steve.jpg"
     clue_surface(picture, game_surface)
 
     # create input screen and obtain number of players and their names
@@ -101,8 +101,8 @@ def solution_board(surface, text):
 def player_surface(surface, name_score, number_of_players=0):
     """ This function displays player information"""
     # Find on your computer the folder location for player pictures.
-    player_data_path = r"C:\Users\sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
-    # player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
+    # player_data_path = r"C:\Users\sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures"
+    player_data_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures"
     os.chdir(player_data_path)
     x, y = 20, 380
     blank_name_score = [["      ", "      ", "      "], ["   ", "   ", "   "], ["  ", "  ", "  "]]
@@ -178,7 +178,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
         # active_player = starting_player(player_score, number_of_players)
         active_player = 0
 
-        letters_guessed = []                             # this will be a list of all guessed letters during a single round
+        letters_guessed = []                          # this will be a list of all guessed letters during a single round
         letter_to_be_guessed = find_letters(text_to_be_solved)   # this is the text str changed to a list of its letters
         print(text_to_be_solved)
         spaces = text_to_be_solved.count(" ")
@@ -190,7 +190,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
         guess = " "
 
         while continue_solving_text:
-            # Show the text and a picture on a game board and get players guess
+            # Show the text and a picture on a game board and get player's guess
             pygame.display.flip()
             # ---
             solution_board(surface, partially_solved_text)
@@ -258,6 +258,20 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
                 x = get_input('string', surface)
                 if x == "y":
+                    print(type(text_to_be_solved))
+                    print(text_to_be_solved)
+                    text_to_be_solved = choose_item(text_list).lower()
+                    temp_list = "C:/Users/ajh08_idy4tts/Documents/anthony_steve_wheel_of_fortune/image/"
+                    text_to_be_solved = temp_list + text_to_be_solved
+                    picture = choose_item(text_to_be_solved)
+
+
+                    clue_image = pygame.image.load(picture)
+                    clue_image = pygame.transform.scale(clue_image, (400, 400))
+                    surface.blit(clue_image, (950, 300))
+                    pygame.display.flip()
+                    text_to_be_solved = picture.replace('.jpg', "").lower()
+                    text_to_be_solved = text_to_be_solved.replace('-', ' ')
                     continue_running_game = True
                 else:
                     time.sleep(10)
@@ -268,8 +282,8 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 def clue_surface(clue_file, surface):
     """The clue_surface shows a picture related to the text to be solved"""
     # Find on your computer the folder locations for animal pictures.
-    animal_jpgs_path = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\image"
-    # animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
+    # animal_jpgs_path = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\image"
+    animal_jpgs_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\image"
 
     os.chdir(animal_jpgs_path)
     clue_image = pygame.image.load(clue_file)

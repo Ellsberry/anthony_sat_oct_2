@@ -9,7 +9,7 @@ def main():
 
 
 def game_loop():
-    """Solve one or more text problems"""
+    """Solve one text problem"""
     # initialize game variables
     active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list = initialize()
     # Randomly select text to be solved
