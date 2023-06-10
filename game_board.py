@@ -62,14 +62,14 @@ def main():
     continue_solving_text = True
     player = []
     active_player = 0
-    letters_in_alphabet = list("abcdefghijklmnopqrstuvwxyz")
+    letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')
     text_list = os.listdir()
 
     # text_list = read_file(game_path + r"\Animals_1.txt")
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
     picture = choose_item(text_list)
-    text_to_be_solved = picture.replace('.jpg', "").lower()
+    text_to_be_solved = picture.replace('.jpg', "").upper()
     text_to_be_solved = text_to_be_solved.replace('-', ' ')
     print('Game Board line 69 picture to be solved', picture, '  xx   ',  text_to_be_solved)
     clue_surface(picture, game_surface)
@@ -206,6 +206,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
             input_message(surface, f"{name_score[0][active_player]}, the hidden text has {number_of_letters_in_text} letters and {spaces} spaces.The guess value is {reward}")
             pygame.display.flip()
             guess = get_input("string", surface)
+            guess = guess.upper()
             # guess = input(
             # f"{name_score[0][active_player]}'s score is: {name_score[1][active_player]}.  Reward for correct letter is {reward}.  Input a letter:  ")
             score = int(name_score[1][active_player])
@@ -215,7 +216,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 player_surface(surface, name_score, number_of_players)
                 input_message(surface, "You did not type a letter!!!  Next Player.")
                 time.sleep(3)
-                input_message(surface,"Input not a letter.  Next Player")
+                input_message(surface, "Input not a letter.  Next Player")
                 active_player += 1
                 continue
             elif guess in letters_guessed:
@@ -254,28 +255,29 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
             letters_guessed.append(guess)
             continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
             if not continue_solving_text:
-                solution_board(surface, partially_solved_text)
-                input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
-                x = get_input('string', surface)
-                if x == "y":
-                    print(type(text_to_be_solved))
-                    print(text_to_be_solved)
-                    text_to_be_solved = choose_item(text_list).lower()
-                    temp_list = "C:/Users/ajh08_idy4tts/Documents/anthony_steve_wheel_of_fortune/image/"
-                    text_to_be_solved = temp_list + text_to_be_solved
-                    picture = choose_item(text_to_be_solved)
+                invalid_choice = True
+                while invalid_choice:
+                    solution_board(surface, partially_solved_text)
+                    input_message(surface, "Game over!!   Do you want to continue playing?  y or n")
+                    x = get_input('string', surface).lower()
+                    if x == "y":
+                        print(type(text_to_be_solved))
+                        print(text_to_be_solved)
+                        text_to_be_solved = choose_item(text_list).upper()
+                        temp_list = "C:/Users/ajh08_idy4tts/Documents/anthony_steve_wheel_of_fortune/image/"
+                        picture = temp_list + text_to_be_solved
 
-
-                    clue_image = pygame.image.load(picture)
-                    clue_image = pygame.transform.scale(clue_image, (400, 400))
-                    surface.blit(clue_image, (950, 300))
-                    pygame.display.flip()
-                    text_to_be_solved = picture.replace('.jpg', "").lower()
-                    text_to_be_solved = text_to_be_solved.replace('-', ' ')
-                    continue_running_game = True
-                else:
-                    time.sleep(10)
-                    quit()
+                        clue_image = pygame.image.load(picture)
+                        clue_image = pygame.transform.scale(clue_image, (400, 400))
+                        surface.blit(clue_image, (950, 300))
+                        pygame.display.flip()
+                        text_to_be_solved = text_to_be_solved.replace('.JPG', "").upper()
+                        text_to_be_solved = text_to_be_solved.replace('-', ' ')
+                        continue_running_game = True
+                        invalid_choice = False
+                    elif x == "n":
+                        time.sleep(10)
+                        quit()
             pygame.display.flip()
 
 

@@ -27,7 +27,7 @@ def initialize():
     number_of_players = 0
     player = []
     player_score = []
-    letters_in_alphabet = "abcdefghijklmnopqrstuvwxyz"
+    letters_in_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     text_list = read_file("Animals_1.txt")
     rewards_list = read_file("wheel_of_fortune_rewards.txt")
     # Determine the number of players and their names
@@ -139,7 +139,7 @@ def process_letter(new_letter, partially_solved_text, solution):
                 else add a letter to the partial_solved_text"""
 
     if len(partially_solved_text) < 1:
-        temp_partially_solved_text = ["?" if solution[index] in "abcdefghijklmnopqrstuvwxyz" else solution[index] for index in range(len(solution))  ]
+        temp_partially_solved_text = ["?" if solution[index] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" else solution[index] for index in range(len(solution))  ]
         partially_solved_text = ""
         for letter in temp_partially_solved_text:
             partially_solved_text += letter
