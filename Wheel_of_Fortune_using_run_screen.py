@@ -22,6 +22,7 @@ def game_loop():
 
 # Initialize variables at start of game
 def initialize():
+    print("i am in initialize in Wheel_of_Fortune_using_run_screen.py")
     continue_running_game = True
     continue_solving_text = True
     number_of_players = 0
