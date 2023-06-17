@@ -4,61 +4,19 @@ import random
 import pygame
 
 
-def main():
-    game_loop()
-
-
-def game_loop():
-    print("I am in wheel of fortune using run screen -- game_loop")
-    """Solve one text problem"""
-    # initialize game variables
-    active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list = initialize()
-    # Randomly select text to be solved
-    text_to_be_solved = choose_item(text_list).lower()
-    player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list)
-    print("scores")
-    if input("Continue Playing Game y or n:  ") == "n":
-        quit()
-
-
-# Initialize variables at start of game
-def initialize():
-    print("I am in wheel of fortune using run screen -- initialize")
-    continue_running_game = True
-    continue_solving_text = True
-    number_of_players = 0
-    player = []
-    player_score = []
-    letters_in_alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    text_list = read_file("Animals_1.txt")
-    rewards_list = read_file("wheel_of_fortune_rewards.txt")
-    # Determine the number of players and their names
-    number_of_players = input("Enter the number of players:  ")
-    number_of_players = int(number_of_players)
-    player = [input(f"Enter the name of player number {index + 1}:   ") for index in range(number_of_players)]
-    print(player)
-    player_score = [0 for index in range(number_of_players)]
-    print(player_score)
-    active_player = 0
-    return active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list
-
-
 def read_file(filename) -> list:
-    print("I am in wheel of fortune using run screen -- read_file")
     """ generic read file function - will output a list containing each line in the specified file"""
     with open(filename) as stuff:
         return [line.rstrip("\n") for line in stuff.readlines()]
 
 
 def choose_item(item_list) -> str:
-    print("I am in wheel of fortune using run screen -- choose_item")
     """Randomly select an element from a file"""
     item = random.choice(item_list)
     return item
 
 
 def player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list):
-    print("I am in wheel of fortune using run screen -- player_loop")
     """ Loop through 1 to 3 players until game problem is solved
      each player gets to guess a new letter or vowel
      if the text includes the letter the player gets another turn"""
@@ -116,7 +74,6 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 
 
 def find_letters(text_to_be_solved):
-    print("I am in wheel of fortune using run screen -- find_letters")
     """transform the text_to_be_solved string  1o a list of characters"""
     # SINCE THE FUNCTION IS ONE LINE AND ONLY SHOWS UP IN 1 PLACE IN THE GAME REPLACE FIND_LETTERS WITH THIS LIST COMPREHENSION
     letters_to_be_guessed = [text_to_be_solved[index] for index in range(len(text_to_be_solved))]
@@ -124,7 +81,6 @@ def find_letters(text_to_be_solved):
 
 
 def starting_player(player_score, number_of_players):
-    print("I am in wheel of fortune using run screen -- starting_player")
     """Set active player to lowest player number with highest score"""
     # if number_of_players == 1:
     #     active_player = 0
@@ -143,7 +99,6 @@ def starting_player(player_score, number_of_players):
 
 
 def process_letter(new_letter, partially_solved_text, solution):
-    print("I am in wheel of fortune using run screen -- process_letter")
     """Set up new partial_solved_text if this is the first time the function is called
                 else add a letter to the partial_solved_text"""
 
@@ -167,8 +122,3 @@ def process_letter(new_letter, partially_solved_text, solution):
         continue_solving_text = True
     # return_list = [continue_solving_text, partially_solved_text, solution]
     return continue_solving_text, partially_solved_text, solution
-
-
-# Start Game
-if __name__ == "__main__":
-    main()

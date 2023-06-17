@@ -4,7 +4,7 @@ import sys
 import pygame
 import os
 import time
-from Wheel_of_Fortune_using_run_screen import read_file, choose_item, starting_player, find_letters, process_letter
+from Wheel_of_Fortune_functions import read_file, choose_item, starting_player, find_letters, process_letter
 from what_computer_am_i_on import get_computer_name
 
 # get the path of the game directory
@@ -281,9 +281,14 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                         continue_running_game = True
                         invalid_choice = False
                     elif x == "n":
+                        save_scores()
                         time.sleep(10)
                         quit()
             pygame.display.flip()
+
+
+def save_scores():
+    pass
 
 
 def clue_surface(clue_file, surface):
