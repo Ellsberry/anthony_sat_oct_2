@@ -9,6 +9,7 @@ def main():
 
 
 def game_loop():
+    print("I am in wheel of fortune using run screen -- game_loop")
     """Solve one text problem"""
     # initialize game variables
     active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list = initialize()
@@ -22,7 +23,7 @@ def game_loop():
 
 # Initialize variables at start of game
 def initialize():
-    print("i am in initialize in Wheel_of_Fortune_using_run_screen.py")
+    print("I am in wheel of fortune using run screen -- initialize")
     continue_running_game = True
     continue_solving_text = True
     number_of_players = 0
@@ -43,17 +44,21 @@ def initialize():
 
 
 def read_file(filename) -> list:
+    print("I am in wheel of fortune using run screen -- read_file")
     """ generic read file function - will output a list containing each line in the specified file"""
     with open(filename) as stuff:
         return [line.rstrip("\n") for line in stuff.readlines()]
 
 
 def choose_item(item_list) -> str:
+    print("I am in wheel of fortune using run screen -- choose_item")
     """Randomly select an element from a file"""
     item = random.choice(item_list)
     return item
 
+
 def player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, player_score, rewards_list, text_list):
+    print("I am in wheel of fortune using run screen -- player_loop")
     """ Loop through 1 to 3 players until game problem is solved
      each player gets to guess a new letter or vowel
      if the text includes the letter the player gets another turn"""
@@ -62,11 +67,11 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
     active_player = starting_player(player_score, number_of_players)
 
     letters_guessed = []                             # this will be a list of all guessed letters during a single round
-    letter_to_be_guessed = find_letters(text_to_be_solved)  # this is the text string changed to a list of its characters
+    letter_to_be_guessed = find_letters(text_to_be_solved) # this is the text string changed to a list of its characters
     print(text_to_be_solved)
     spaces = text_to_be_solved.count(" ")
     number_of_letters_in_text = len(text_to_be_solved) - spaces
-    partially_solved_text = []                      # partially_solved_text is list of characters as the text is filled in
+    partially_solved_text = []                   # partially_solved_text is list of characters as the text is filled in
 
     guess = " "
 
@@ -111,6 +116,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 
 
 def find_letters(text_to_be_solved):
+    print("I am in wheel of fortune using run screen -- find_letters")
     """transform the text_to_be_solved string  1o a list of characters"""
     # SINCE THE FUNCTION IS ONE LINE AND ONLY SHOWS UP IN 1 PLACE IN THE GAME REPLACE FIND_LETTERS WITH THIS LIST COMPREHENSION
     letters_to_be_guessed = [text_to_be_solved[index] for index in range(len(text_to_be_solved))]
@@ -118,6 +124,7 @@ def find_letters(text_to_be_solved):
 
 
 def starting_player(player_score, number_of_players):
+    print("I am in wheel of fortune using run screen -- starting_player")
     """Set active player to lowest player number with highest score"""
     # if number_of_players == 1:
     #     active_player = 0
@@ -136,6 +143,7 @@ def starting_player(player_score, number_of_players):
 
 
 def process_letter(new_letter, partially_solved_text, solution):
+    print("I am in wheel of fortune using run screen -- process_letter")
     """Set up new partial_solved_text if this is the first time the function is called
                 else add a letter to the partial_solved_text"""
 
