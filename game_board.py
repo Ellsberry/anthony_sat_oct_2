@@ -64,7 +64,8 @@ def main():
     continue_running_game = True
     continue_solving_text = True
     player = []
-    active_player = 0
+    print(sys.path)
+    active_player = starting_player(0, 0)
     letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')
     text_list = os.listdir()

@@ -81,7 +81,10 @@ def find_letters(text_to_be_solved):
 
 
 def starting_player(player_score, number_of_players):
-    """Set active player to lowest player number with highest score"""
+    """Set active player to the lowest player number with the highest score"""
+    all_players_scores = read_file("wheel_of_fortune_player_scores.csv")
+    all_players_scores = sorted(all_players_scores, key=lambda x: (x[0], x[1]))
+    print(all_players_scores)
     # if number_of_players == 1:
     #     active_player = 0
     # elif number_of_players == 2 and player_score[0] >= player_score[1]:
