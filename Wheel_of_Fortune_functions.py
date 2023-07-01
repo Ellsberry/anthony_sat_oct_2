@@ -74,13 +74,23 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
 
 
 def find_letters(text_to_be_solved):
-    """transform the text_to_be_solved string  1o a list of characters"""
+    """transform the text_to_be_solved string  to a list of characters"""
     # SINCE THE FUNCTION IS ONE LINE AND ONLY SHOWS UP IN 1 PLACE IN THE GAME REPLACE FIND_LETTERS WITH THIS LIST COMPREHENSION
     letters_to_be_guessed = [text_to_be_solved[index] for index in range(len(text_to_be_solved))]
     return letters_to_be_guessed
 
 
 def starting_player(player_score, number_of_players):
+    """Set active player to lowest player number with highest score"""
+
+    """change player_score to name_score_list in calling parameters
+          
+       This function needs to be updated to handle 1 to 3 players.
+       We need to create a file that contains the player names and scores.
+       We need create and call a function named 'read_previous_scores(name_score)' to read the file.
+       See the function 'read_previous_scores' below. """
+
+
     """Set active player to the lowest player number with the highest score"""
     all_players_scores = read_file("wheel_of_fortune_player_scores.csv")
     all_players_scores = sorted(all_players_scores, key=lambda x: (x[0], x[1]))
@@ -99,6 +109,17 @@ def starting_player(player_score, number_of_players):
     #     active_player = 2
     active_player = 0
     return active_player
+
+
+def read_previous_scores(name_score):
+    """Read the previous scores from a file and return a list of lists"""
+
+    """The file previous_scores will be read into a list of lists.   
+       The list will be sorted by player and player score.
+       
+       name_score will be returned with the highest previous score"""
+
+    pass
 
 
 def process_letter(new_letter, partially_solved_text, solution):
