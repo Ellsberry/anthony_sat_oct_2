@@ -22,7 +22,7 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
      if the text includes the letter the player gets another turn"""
 
     # determine which player starts the game round.
-    active_player = starting_player(player_score, number_of_players)
+    active_player = starting_player(player_score, number_of_players, )
 
     letters_guessed = []                             # this will be a list of all guessed letters during a single round
     letter_to_be_guessed = find_letters(text_to_be_solved) # this is the text string changed to a list of its characters
@@ -80,7 +80,7 @@ def find_letters(text_to_be_solved):
     return letters_to_be_guessed
 
 
-def starting_player(player_score, number_of_players):
+def starting_player(number_of_players, name_score):
     """Set active player to lowest player number with highest score"""
 
     """change player_score to name_score_list in calling parameters
@@ -95,19 +95,32 @@ def starting_player(player_score, number_of_players):
     all_players_scores = read_file("wheel_of_fortune_player_scores.csv")
     all_players_scores = sorted(all_players_scores, key=lambda x: (x[0], x[1]))
     print(all_players_scores)
-    # if number_of_players == 1:
+    print(all_players_scores[0][1])
+    z = int(len(all_players_scores))
+    for i in range(number_of_players):
+        for x in z:
+            print("line 102: x =  ", x)
+
+
+
+
+    if number_of_players == 1:
+        active_player = 0
+    # elif number_of_players == 2 and player_highscore[0] >= player_highscore[1]:
     #     active_player = 0
-    # elif number_of_players == 2 and player_score[0] >= player_score[1]:
-    #     active_player = 0
-    # elif number_of_players == 2 and player_score[0] < player_score[1]:
+    # elif number_of_players == 2 and player_highscore[0] < player_highscore[1]:
     #     active_player = 1
-    # elif player_score[0] >= player_score[1] and player_score[0] >= player_score[2]:
+    # elif player_highscore[0] >= player_highscore[1] and player_highscore[0] >= player_highscore[2]:
     #     active_player = 0
-    # elif player_score[1] >= player_score[2]:
+    # elif player_highscore[1] >= player_highscore[2]:
     #     active_player = 1
-    # else:
-    #     active_player = 2
-    active_player = 0
+    else:
+        player0 = name_score[0][0]
+        if player0 in all_players_scores:
+            print(player0)
+        else:
+            exit()
+    # active_player = 0
     return active_player
 
 

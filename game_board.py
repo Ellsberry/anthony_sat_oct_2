@@ -4,9 +4,10 @@ import sys
 import pygame
 import os
 import time
+from datetime import date
 from Wheel_of_Fortune_functions import read_file, choose_item, starting_player, find_letters, process_letter
 from what_computer_am_i_on import get_computer_name
-
+import csv
 # get the path of the game directory
 game_path = os.getcwd()
 
@@ -65,7 +66,7 @@ def main():
     continue_solving_text = True
     player = []
     print(sys.path)
-    active_player = starting_player(0, 0)
+    active_player = starting_player(number_of_players, name_score)
     letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')
     text_list = os.listdir()
@@ -282,14 +283,26 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                         continue_running_game = True
                         invalid_choice = False
                     elif x == "n":
-                        save_scores()
+                        save_scores(name_score, number_of_players)
                         time.sleep(10)
                         quit()
             pygame.display.flip()
 
 
-def save_scores():
-    pass
+def save_scores(name_and_score, number_of_scores):
+    """Append to wheel_of_fortune_player_scores.csv (name, date, and score)"""
+    todays_date = date.today()
+    for i in range(number_of_scores):
+        name = name_and_score[0][i]
+        score = name_and_score[1][i]
+        data = [[name, todays_date, score]]
+        print(data)
+        try:
+            with open("wheel_of_fortune_player_scores.csv", "a", newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
+        except:
+            print("Exception occurred")
 
 
 def clue_surface(clue_file, surface):
