@@ -5,7 +5,8 @@ import pygame
 import os
 import time
 from datetime import date
-from Wheel_of_Fortune_functions import read_file, choose_item, starting_player, find_letters, process_letter
+from Wheel_of_Fortune_functions import read_file, choose_item, starting_player, find_letters, process_letter,\
+    read_previous_scores
 from what_computer_am_i_on import get_computer_name
 import csv
 # get the path of the game directory
@@ -66,6 +67,7 @@ def main():
     continue_solving_text = True
     player = []
     print(sys.path)
+    read_previous_scores("Opie")
     active_player = starting_player(number_of_players, name_score)
     letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')

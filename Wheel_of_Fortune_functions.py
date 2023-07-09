@@ -2,6 +2,7 @@
 
 import random
 import pygame
+import pandas
 
 
 def read_file(filename) -> list:
@@ -98,7 +99,7 @@ def starting_player(number_of_players, name_score):
     print(all_players_scores[0][1])
     z = int(len(all_players_scores))
     for i in range(number_of_players):
-        for x in z:
+        for x in range(z):
             print("line 102: x =  ", x)
 
 
@@ -124,15 +125,25 @@ def starting_player(number_of_players, name_score):
     return active_player
 
 
-def read_previous_scores(name_score):
+def read_previous_scores(player):
     """Read the previous scores from a file and return a list of lists"""
-
-    """The file previous_scores will be read into a list of lists.   
-       The list will be sorted by player and player score.
-       
+    """The file previous_scores will be read into a data frame.   
+       The data frame will be sorted by player and player score.
        name_score will be returned with the highest previous score"""
+    data_frame = pandas.read_csv("wheel_of_fortune_player_scores.csv")
+    data_frame.sort_values(by=["name", "score"], ascending=[True, False], inplace=True)
+    print(data_frame)
+    print(data_frame["name"])
+    print(player)
+    number_of_rows = int(len(data_frame["name"]))
+    for i in range(number_of_rows):
+        if player == data_frame["name"][i]:
+            print(data_frame["score"][i])
+            return
+        else:
+            print("My favorite number is orange")
 
-    pass
+    exit()
 
 
 def process_letter(new_letter, partially_solved_text, solution):
