@@ -114,7 +114,7 @@ def starting_player(number_of_players, name_score):
     # elif player_highscore[0] >= player_highscore[1] and player_highscore[0] >= player_highscore[2]:
     #     active_player = 0
     # elif player_highscore[1] >= player_highscore[2]:
-    #     active_player = 1
+    #     active_player = 1 can u c ths
     else:
         player0 = name_score[0][0]
         if player0 in all_players_scores:
