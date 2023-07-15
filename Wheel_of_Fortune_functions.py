@@ -125,7 +125,7 @@ def starting_player(number_of_players, name_score):
     return active_player
 
 
-def read_previous_scores(player):
+def read_previous_scores(name_score, number_of_players):
     """Read the previous scores from a file and return a list of lists"""
     """The file previous_scores will be read into a data frame.   
        The data frame will be sorted by player and player score.
@@ -134,22 +134,27 @@ def read_previous_scores(player):
     data_frame.sort_values(by=["name", "score"], ascending=[True, False], inplace=True)
     data_frame = data_frame.reset_index()
     print(data_frame)
-    print(data_frame["name"])
-    print(player)
-    number_of_rows = int(len(data_frame["name"]))
-    for i in range(number_of_rows):
-        print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
-        print("Index:  ", i)
-
-        if player == data_frame["name"][i]:
+    print(name_score)
+    for j in range(number_of_players):
+        player = name_score[0][j]
+        number_of_rows = int(len(data_frame["name"]))
+        for i in range(number_of_rows):
             print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
             print("Index:  ", i)
-            print(data_frame["score"][i])
-            return
-        else:
-            print("My favorite number is orange")
 
-    exit()
+            if player == data_frame["name"][i]:
+                print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
+                print("Index:  ", i)
+                print(data_frame["score"][i])
+                name_score[2][j] = data_frame["score"][i]
+                break
+            else:
+                print("My favorite number is orange")
+    print(name_score)
+    highscore_index = name_score.index(name_score[-1])
+    name_score = [list(item) for item in zip(*sorted(zip(*name_score), key=lambda x: x[highscore_index], reverse=True))]
+    print(name_score)
+    return name_score
 
 
 def process_letter(new_letter, partially_solved_text, solution):

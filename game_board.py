@@ -67,7 +67,7 @@ def main():
     continue_solving_text = True
     player = []
     print(sys.path)
-    read_previous_scores("Opie")
+    name_score = read_previous_scores(name_score, number_of_players)
     active_player = starting_player(number_of_players, name_score)
     letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')
