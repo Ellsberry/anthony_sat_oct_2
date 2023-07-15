@@ -132,12 +132,18 @@ def read_previous_scores(player):
        name_score will be returned with the highest previous score"""
     data_frame = pandas.read_csv("wheel_of_fortune_player_scores.csv")
     data_frame.sort_values(by=["name", "score"], ascending=[True, False], inplace=True)
+    data_frame = data_frame.reset_index()
     print(data_frame)
     print(data_frame["name"])
     print(player)
     number_of_rows = int(len(data_frame["name"]))
     for i in range(number_of_rows):
+        print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
+        print("Index:  ", i)
+
         if player == data_frame["name"][i]:
+            print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
+            print("Index:  ", i)
             print(data_frame["score"][i])
             return
         else:
