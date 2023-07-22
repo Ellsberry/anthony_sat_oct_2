@@ -92,35 +92,26 @@ def starting_player(number_of_players, name_score):
        We need create and call a function named 'read_previous_scores(name_score)' to read the file.
        See the function 'read_previous_scores' below. """
 
-
     """Set active player to the lowest player number with the highest score"""
     all_players_scores = read_file("wheel_of_fortune_player_scores.csv")
     all_players_scores = sorted(all_players_scores, key=lambda x: (x[0], x[1]))
-
-    z = int(len(all_players_scores))
-    for i in range(number_of_players):
-        for x in range(z):
-            print("line 102: x =  ", x)
-
-
-
-
-    if number_of_players == 1:
-        active_player = 0
-    # elif number_of_players == 2 and player_highscore[0] >= player_highscore[1]:
+    active_player = 0
+    # if number_of_players == 1:
     #     active_player = 0
-    # elif number_of_players == 2 and player_highscore[0] < player_highscore[1]:
-    #     active_player = 1
-    # elif player_highscore[0] >= player_highscore[1] and player_highscore[0] >= player_highscore[2]:
-    #     active_player = 0
-    # elif player_highscore[1] >= player_highscore[2]:
-    #     active_player = 1 can u c ths
-    else:
-        player0 = name_score[0][0]
-        if player0 in all_players_scores:
-            print(player0)
-        else:
-            exit()
+    # # elif number_of_players == 2 and player_highscore[0] >= player_highscore[1]:
+    # #     active_player = 0
+    # # elif number_of_players == 2 and player_highscore[0] < player_highscore[1]:
+    # #     active_player = 1
+    # # elif player_highscore[0] >= player_highscore[1] and player_highscore[0] >= player_highscore[2]:
+    # #     active_player = 0
+    # # elif player_highscore[1] >= player_highscore[2]:
+    # #     active_player = 1
+    # else:
+    #     player0 = name_score[0][0]
+    #     if player0 in all_players_scores:
+    #         print(player0)
+    #     else:
+    #         exit()
     # active_player = 0
     return active_player
 
@@ -130,12 +121,13 @@ def read_previous_scores(name_score, number_of_players):
     """The file previous_scores will be read into a data frame.   
        The data frame will be sorted by player and player score.
        name_score will be returned with the highest previous score"""
-    data_frame = pandas.read_csv("wheel_of_fortune_player_scores.csv")
+    data_frame = pandas.read_csv(r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\wheel_of_fortune_player_scores.csv")
     data_frame.sort_values(by=["name", "score"], ascending=[True, False], inplace=True)
     data_frame = data_frame.reset_index()
     print(data_frame)
 
-
+    for k in range(3):
+        name_score[2][k] = -99999
     print(name_score)
 
     # Anthony now we can replace the no_previous_score with their high score if they ae in the file
@@ -150,11 +142,13 @@ def read_previous_scores(name_score, number_of_players):
                 print(data_frame["score"][i])
                 name_score[2][j] = data_frame["score"][i]
                 break
-            else:
-                print("My favorite number is orange")
+
     print(name_score)
     highscore_index = name_score.index(name_score[-1])
     name_score = [list(item) for item in zip(*sorted(zip(*name_score), key=lambda x: x[highscore_index], reverse=True))]
+    for l in range(3):
+        if name_score[2][l] == -99999:
+            name_score[2][l] = 0
     print(name_score)
     return name_score
 
