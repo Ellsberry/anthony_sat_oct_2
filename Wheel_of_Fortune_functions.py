@@ -148,7 +148,9 @@ def read_previous_scores(name_score, number_of_players):
     name_score = [list(item) for item in zip(*sorted(zip(*name_score), key=lambda x: x[highscore_index], reverse=True))]
     for l in range(3):
         if name_score[2][l] == -99999:
-            name_score[2][l] = 0
+            name_score[2][l] = "0"
+        else:
+            name_score[2][l] = str(name_score[2][l])
     print(name_score)
     return name_score
 

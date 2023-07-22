@@ -61,13 +61,13 @@ def main():
         pygame.display.flip()
         player_3_name = get_input("string", game_surface)
         name_score[0][2] = player_3_name
+    name_score = read_previous_scores(name_score, number_of_players)
     player_surface(game_surface, name_score, number_of_players)
 
     continue_running_game = True
     continue_solving_text = True
     player = []
     print(sys.path)
-    name_score = read_previous_scores(name_score, number_of_players)
     active_player = starting_player(number_of_players, name_score)
     letters_in_alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     os.chdir(game_path + r'\image')
@@ -299,12 +299,16 @@ def save_scores(name_and_score, number_of_scores):
         score = name_and_score[1][i]
         data = [[name, todays_date, score]]
         print(data)
+        if get_computer_name() == "ANTHONY-PC":
+            file_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\wheel_of_fortune_player_scores.csv"
+        else:
+            file_path = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\wheel_of_fortune_player_scores.csv"
         try:
-            with open("player_pictures/wheel_of_fortune_player_scores.csv", "a", newline='') as file:
+            with open(file_path, "a", newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(data)
-        except:
-            print("Exception occurred")
+        except Exception as e:
+            print("Exception occurred:   ", e)
 
 
 def clue_surface(clue_file, surface):
