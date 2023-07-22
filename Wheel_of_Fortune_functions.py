@@ -3,6 +3,7 @@
 import random
 import pygame
 import pandas
+import os
 
 
 def read_file(filename) -> list:
@@ -95,8 +96,7 @@ def starting_player(number_of_players, name_score):
     """Set active player to the lowest player number with the highest score"""
     all_players_scores = read_file("wheel_of_fortune_player_scores.csv")
     all_players_scores = sorted(all_players_scores, key=lambda x: (x[0], x[1]))
-    print(all_players_scores)
-    print(all_players_scores[0][1])
+
     z = int(len(all_players_scores))
     for i in range(number_of_players):
         for x in range(z):
@@ -126,7 +126,7 @@ def starting_player(number_of_players, name_score):
 
 
 def read_previous_scores(name_score, number_of_players):
-    """Read the previous scores from a file and return a list of lists"""
+    """Read the previous scores from a file and return a list of lists called name_scores"""
     """The file previous_scores will be read into a data frame.   
        The data frame will be sorted by player and player score.
        name_score will be returned with the highest previous score"""
@@ -134,13 +134,15 @@ def read_previous_scores(name_score, number_of_players):
     data_frame.sort_values(by=["name", "score"], ascending=[True, False], inplace=True)
     data_frame = data_frame.reset_index()
     print(data_frame)
+
+
     print(name_score)
+
+    # Anthony now we can replace the no_previous_score with their high score if they ae in the file
     for j in range(number_of_players):
         player = name_score[0][j]
         number_of_rows = int(len(data_frame["name"]))
         for i in range(number_of_rows):
-            print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")
-            print("Index:  ", i)
 
             if player == data_frame["name"][i]:
                 print(f"Name: {data_frame['name'][i]}  Score: {data_frame['score'][i]}")

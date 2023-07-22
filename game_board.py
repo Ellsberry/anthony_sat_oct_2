@@ -300,7 +300,7 @@ def save_scores(name_and_score, number_of_scores):
         data = [[name, todays_date, score]]
         print(data)
         try:
-            with open("wheel_of_fortune_player_scores.csv", "a", newline='') as file:
+            with open("player_pictures/wheel_of_fortune_player_scores.csv", "a", newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(data)
         except:
