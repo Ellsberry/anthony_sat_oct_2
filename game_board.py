@@ -40,7 +40,6 @@ def main():
     # create input screen and obtain number of players and their names
     input_message(game_surface, 'Enter the number of people playing (1, 2, or 3)?')
     pygame.display.flip()
-    # time.sleep(2)
     input_okay = True
     while input_okay:
         num_of_players = get_input("string", game_surface)
@@ -73,19 +72,14 @@ def main():
     os.chdir(game_path + r'\image')
     text_list = os.listdir()
 
-    # text_list = read_file(game_path + r"\Animals_1.txt")
     rewards_list = read_file(game_path + r"\wheel_of_fortune_rewards.txt")
     picture = choose_item(text_list)
     text_to_be_solved = picture.replace('.jpg', "").upper()
     text_to_be_solved = text_to_be_solved.replace('-', ' ')
     print('Game Board line 69 picture to be solved', picture, '  xx   ',  text_to_be_solved)
     clue_surface(picture, game_surface)
-    player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet,
-                number_of_players, player, name_score, rewards_list, text_list, game_surface)
-
-    # if input("Continue Playing Game y or n:  ") == "n":
-    #     quit()
-    # time.sleep(10)
+    player_loop(text_to_be_solved, continue_running_game, letters_in_alphabet,
+                number_of_players, name_score, rewards_list, text_list, game_surface)
 
 
 def game_screen():
@@ -178,7 +172,8 @@ def find_player_image(name):
     return image_file_name
 
 
-def player_loop(text_to_be_solved, active_player, continue_running_game, continue_solving_text, letters_in_alphabet, number_of_players, player, name_score, rewards_list, text_list, surface):
+def player_loop(text_to_be_solved, continue_running_game, letters_in_alphabet, number_of_players, name_score,
+                rewards_list, text_list, surface):
     """ Loop through 1 to 3 players until game problem is solved
      each player gets to guess a new letter or vowel
      if the text includes the letter the player gets another turn"""
@@ -194,14 +189,14 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
         number_of_letters_in_text = len(text_to_be_solved) - spaces
         partially_solved_text = []                # partially_solved_text is list of characters as the text is filled in
 
-        continue_solving_text, partially_solved_text, solution = process_letter(" ", partially_solved_text, text_to_be_solved)
+        continue_solving_text, partially_solved_text, solution = process_letter(" ", partially_solved_text,
+                                                                                text_to_be_solved)
         solution_board(surface, partially_solved_text)
-        guess = " "
 
         while continue_solving_text:
             # Show the text and a picture on a game board and get player's guess
             pygame.display.flip()
-            # ---
+
             solution_board(surface, partially_solved_text)
             pygame.display.flip()
 
@@ -212,12 +207,11 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 active_player = 0
 
             # input a players guess
-            input_message(surface, f"{name_score[0][active_player]}, the hidden text has {number_of_letters_in_text} letters and {spaces} spaces.The guess value is {reward}")
+            input_message(surface, f"{name_score[0][active_player]}, the hidden text has {number_of_letters_in_text}"
+                                   f" letters and {spaces} spaces.The guess value is {reward}")
             pygame.display.flip()
             guess = get_input("string", surface)
             guess = guess.upper()
-            # guess = input(
-            # f"{name_score[0][active_player]}'s score is: {name_score[1][active_player]}.  Reward for correct letter is {reward}.  Input a letter:  ")
             score = int(name_score[1][active_player])
             if guess not in letters_in_alphabet:
                 score -= reward
@@ -236,15 +230,14 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 time.sleep(3)
                 active_player += 1
                 continue
-            elif guess not in letter_to_be_guessed and guess in ["a", "e", "i", "o", "u"]:
+            elif guess not in letter_to_be_guessed and guess in ["A", "E", "I", "O", "U"]:
                 score -= 250
                 name_score[1][active_player] = str(score)
                 player_surface(surface, name_score, number_of_players)
                 input_message(surface, "Sorry, but your vowel is not in the text")
                 time.sleep(3)
                 active_player += 1
-                continue
-            elif guess in ["a", "e", "i", "o", "u"]:
+            elif guess in ["A", "E", "I", "O", "U"]:
                 score -= 250
                 name_score[1][active_player] = str(score)
                 player_surface(surface, name_score, number_of_players)
@@ -259,10 +252,10 @@ def player_loop(text_to_be_solved, active_player, continue_running_game, continu
                 input_message(surface, f"Sorry, there is no {guess} in the text.")
                 time.sleep(3)
                 active_player += 1
-                continue
 
             letters_guessed.append(guess)
-            continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text, text_to_be_solved)
+            continue_solving_text, partially_solved_text, solution = process_letter(guess, partially_solved_text,
+                                                                                    text_to_be_solved)
             if not continue_solving_text:
                 invalid_choice = True
                 while invalid_choice:
@@ -300,9 +293,11 @@ def save_scores(name_and_score, number_of_scores):
         data = [[name, todays_date, score]]
         print(data)
         if get_computer_name() == "ANTHONY-PC":
-            file_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\wheel_of_fortune_player_scores.csv"
+            file_path = r"C:\Users\ajh08_idy4tts\Documents\anthony_steve_wheel_of_fortune\player_pictures\
+            wheel_of_fortune_player_scores.csv"
         else:
-            file_path = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\wheel_of_fortune_player_scores.csv"
+            file_path = r"C:\Users\Sells\PycharmProjects\anthony_steve_wheel_of_fortune\player_pictures\
+            wheel_of_fortune_player_scores.csv"
         try:
             with open(file_path, "a", newline='') as file:
                 writer = csv.writer(file)
